@@ -2,11 +2,11 @@ pragma solidity ^0.4.11;
 
 contract LotterEth {
     
-    mapping(uint => address) players;
+    mapping(uint => address) public players;
     address owner;
-    uint ticketPrice = 1 ether;
-    uint playersNeeded = 10;
-    uint ticketsBought;
+    uint public ticketPrice = 1 ether;
+    uint public jackpotNeeded = 10;
+    uint public ticketsBought;
     
     constructor() public {
         owner = msg.sender;
@@ -22,7 +22,7 @@ contract LotterEth {
             revert();
         }
         
-        if (quantity > playersNeeded - ticketsBought) {     //if caller is trying to buy more tickets than are available, revert
+        if (quantity > jackpotNeeded - ticketsBought) {     //if caller is trying to buy more tickets than are available, revert
             revert();
         }
         
@@ -33,7 +33,7 @@ contract LotterEth {
         
         emit Purchase(msg.sender, quantity);
         
-        if (ticketsBought == playersNeeded) {     //if all tickets have been bought, choose a winner
+        if (ticketsBought == jackpotNeeded) {     //if all tickets have been bought, choose a winner
             chooseWinner();
             resetLottery();
         }
@@ -44,7 +44,7 @@ contract LotterEth {
         uint rand = random();
         address winner = players[rand];
         emit AnnounceWinner(winner);
-        winner.transfer(ticketPrice*playersNeeded);
+        winner.transfer(ticketPrice*jackpotNeeded);
     }
     
     function resetLottery() private {
