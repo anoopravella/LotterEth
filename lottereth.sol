@@ -15,6 +15,7 @@ contract LotterEth {
     
     // events
     event Purchase(address _buyer, uint _amount);
+    event AnnounceWinner(address _winner);
     
     function buyTickets(uint quantity) public payable {
         if (msg.value != quantity*ticketPrice) {        //if caller sent wrong amount of ether, revert
@@ -34,6 +35,7 @@ contract LotterEth {
         
         if (ticketsBought == playersNeeded) {     //if all tickets have been bought, choose a winner
             chooseWinner();
+            resetLottery();
         }
         
     }
@@ -41,11 +43,16 @@ contract LotterEth {
     function chooseWinner() private {
         uint rand = random();
         address winner = players[rand];
+        emit AnnounceWinner(winner);
         winner.transfer(ticketPrice*playersNeeded);
     }
     
+    function resetLottery() private {
+        ticketsBought = 0;
+    }
+    
     function random() private view returns (uint) {
-        return uint(uint256(keccak256(block.timestamp, block.difficulty)) % playersNeeded);
+        return uint(uint256(keccak256(block.timestamp, block.difficulty)) % playersNeeded);     // not the best prng - TODO: find a way to make a better one
     }
     
     //event ViewJackpot (uint256 _jackpot);
