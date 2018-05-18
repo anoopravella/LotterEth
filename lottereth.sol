@@ -52,7 +52,7 @@ contract LotterEth {
     }
     
     function random() private view returns (uint) {
-        return uint(uint256(keccak256(block.timestamp, block.difficulty)) % playersNeeded);     // not the best prng - TODO: find a way to make a better one
+        return uint(uint256(keccak256(block.timestamp, block.difficulty)) % jackpotNeeded);     // not the best prng - TODO: find a way to make a better one
     }
     
     //event ViewJackpot (uint256 _jackpot);
