@@ -1,2 +1,2 @@
 # LotterEth
-A decentralized lottery application written using solidity and the web3 javascript API.
+A decentralized lottery application implemented using Ethereum, Solidity and the web3 javascript API.
