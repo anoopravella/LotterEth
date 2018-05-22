@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" type="text/css" href="main.css">
+
+    <script src="./node_modules/web3/dist/web3.min.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>LotterEth</h1>
+
+        <h2 id="price"></h2>
+
+        <h4 id="prevWinner"></h4>
+        <h4 id="ticketsLeft"></h4>
+
+        <h5 id="instructions">How to Play:</h5>
+  		<p>Send the exact amount of ether needed to purchase the number of tickets you desire to this address: 0x1a0f0e2c3c1ad06c449b9f4f5448060a9ad48d16</p>
+
+
+        
+
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+    <script>
+       // Our future code here..
+       if (typeof web3 !== 'undefined') {
+            web3 = new Web3(web3.currentProvider);
+       }
+       else {
+            // set the provider you want from Web3.providers
+            web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io"));
+       }
+
+
+       web3.eth.defaultAccount = web3.eth.accounts[0];
+
+       var LotterEthContract = web3.eth.contract([
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "ticketPrice",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "previousWinner",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "ticketsLeft",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "ticketsBought",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "totalTickets",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "players",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "fallback"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_buyer",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_amount",
+				"type": "uint256"
+			}
+		],
+		"name": "Purchase",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_winner",
+				"type": "address"
+			}
+		],
+		"name": "AnnounceWinner",
+		"type": "event"
+	}
+]);
+
+       var LotterEth = LotterEthContract.at('0x1a0f0e2c3c1ad06c449b9f4f5448060a9ad48d16');
+       console.log(LotterEth);
+
+
+        LotterEth.ticketPrice(function(error, result){
+            if(!error)
+                {
+                    $("#price").html('Ticket Price: ' + web3.fromWei(result, 'ether') + ' ETH');
+                    console.log(result);
+                }
+            else
+            	console.log('error occurred');
+                console.error(error);
+        });
+
+        LotterEth.previousWinner(function(error, result){
+            if(!error)
+                {
+                    $("#prevWinner").html('Last round winner: ' + result);
+                    console.log(result);
+                }
+            else
+            	console.log('error occurred');
+                console.error(error);
+        });
+
+        LotterEth.ticketsLeft(function(error, result){
+            if(!error)
+                {
+                    $("#ticketsLeft").html('Tickets left in current round: ' + result);
+                    console.log(result);
+                }
+            else
+            	console.log('error occurred');
+                console.error(error);
+        });
+
+
+    </script>
+
+</body>
+</html>
