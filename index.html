@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="refresh" content="60">
     <title>Document</title>
 
     <link rel="stylesheet" type="text/css" href="main.css">
@@ -13,23 +14,22 @@
 </head>
 
 <body>
+
+	<h1>LOTTERETH</h1>
+
     <div class="container">
 
-        <h1>LotterEth</h1>
+        <h3 id="subtitle">Status Report</h3>
 
         <h2 id="price"></h2>
 
-        <h4 id="prevWinner"></h4>
         <h4 id="ticketsLeft"></h4>
-
-        <h5 id="instructions">How to Play:</h5>
-  		<p>Send the exact amount of ether needed to purchase the number of tickets you desire to this address: 0x1a0f0e2c3c1ad06c449b9f4f5448060a9ad48d16</p>
-
-
+        <h4 id="prevWinner"></h4>
         
 
-
     </div>
+
+    <p id="instructions"><span id="title">How to Play: </span>Send the exact amount of ether needed to purchase the number of tickets you desire to this address: <span style="color:red">0x1a0f0e2c3c1ad06c449b9f4f5448060a9ad48d16</span>. For example, if you would like to purchase 5 tickets, you would send 0.05 ETH to the address. After all of the tickets in the current round have been purchased, a random ticket will be chosen and the account associated with that ticket will be rewarded 1 ETH. <span id="warning">CURRENTLY IN TESTING PHASE: DEPLOYED ON ROPSTEN TEST NET</span></p>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 
