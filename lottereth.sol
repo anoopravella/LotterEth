@@ -2,7 +2,7 @@ pragma solidity ^0.4.24;
 
 contract LotterEth {
     
-    mapping(uint => address) public players;            //should this be private?
+    mapping(uint => address) players;
     address owner;
     address public previousWinner;
     uint public ticketPrice = 0.01 ether;
